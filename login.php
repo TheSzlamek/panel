@@ -1,9 +1,13 @@
 <?php
 session_start();
+
+// jeśli już zalogowany → od razu panel
 if (!empty($_SESSION['logged_in'])) {
     header("Location: panel.php");
     exit;
 }
+
+// komunikat o błędzie
 $msg = $_GET['msg'] ?? '';
 ?>
 <!doctype html>
@@ -14,14 +18,12 @@ $msg = $_GET['msg'] ?? '';
 </head>
 <body>
 <h2>Logowanie</h2>
-<?php if ($msg): ?><p style="color:red;"><?=htmlspecialchars($msg)?></p><?php endif; ?>
+<?php if ($msg): ?>
+<p style="color:red;"><?=htmlspecialchars($msg)?></p>
+<?php endif; ?>
 <form method="post" action="authenticate.php">
     <label>Hasło: <input type="password" name="password" required></label>
     <button type="submit">Zaloguj</button>
 </form>
 </body>
 </html>
-
-
-
-
