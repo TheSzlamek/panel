@@ -7,13 +7,17 @@ if (empty($_SESSION['logged_in'])) {
 ?>
 <!doctype html>
 <html>
-<head><meta charset="utf-8"><title>Panel</title></head>
+<head>
+    <meta charset="utf-8">
+    <title>Panel</title>
+</head>
 <body>
-<h2>Witaj w panelu!</h2>
-<p>Tu możesz dać swoją zawartość (to zastąpi panel.html).</p>
+<h2>Panel użytkownika</h2>
+<p>To jest Twój panel. Możesz tutaj dodawać przyciski, linki, treści.</p>
 <p>
-    <a href="change_password.php">Zmień hasło</a> | 
+    <a href="change_password.php">Zmień hasło</a> |
     <a href="logout.php">Wyloguj</a>
 </p>
 </body>
 </html>
+
