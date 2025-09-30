@@ -1,54 +1,91 @@
-<?php
-session_start();
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moja Strona</title>
+    <style>
+        /* Reset podstawowy */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
 
-$stored = trim(file_get_contents(__DIR__ . '/password.txt'));
-$msg = "";
+        body {
+            background: linear-gradient(to bottom right, #2c3e50, #4ca1af);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-// Wylogowanie
-if (isset($_GET['logout'])) {
-    session_destroy();
-    header("Location: index.php");
-    exit;
-}
+        header {
+            background-color: rgba(0,0,0,0.5);
+            padding: 20px;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+        }
 
-// Próba logowania
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $entered = $_POST['password'] ?? '';
-    if ($entered === $stored) {
-        $_SESSION['logged_in'] = true;
-    } else {
-        $msg = "Błędne hasło!";
-    }
-}
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
 
-// Jeśli zalogowany → pokaż panel
-if (!empty($_SESSION['logged_in'])):
-?>
-<!doctype html>
-<html>
-<head><meta charset="utf-8"><title>Panel</title></head>
+        main h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        main p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1em;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #c0392b;
+        }
+
+        footer {
+            background-color: rgba(0,0,0,0.5);
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
 <body>
-<h2>Witaj w panelu!</h2>
-<p>To jest Twoja zawartość panelu.</p>
-<p>
-    <a href="index.php?logout=1">Wyloguj</a> | 
-    <a href="change_password.php">Zmień hasło</a>
-</p>
+    <header>
+        Moja Strona
+    </header>
+
+    <main>
+        <h1>Witaj na stronie!</h1>
+        <p>To jest przykładowa strona z HTML i CSS. Możesz tu dodać dowolne treści, sekcje, obrazy, formularze lub przyciski.</p>
+        <a href="#" class="button">Kliknij mnie</a>
+    </main>
+
+    <footer>
+        © 2025 Moja Strona. Wszelkie prawa zastrzeżone.
+    </footer>
 </body>
 </html>
 
-<?php else: ?>
-<!doctype html>
-<html>
-<head><meta charset="utf-8"><title>Logowanie</title></head>
-<body>
-<h2>Logowanie</h2>
-<?php if ($msg): ?><p style="color:red;"><?=$msg?></p><?php endif; ?>
-<form method="post">
-    <label>Hasło: <input type="password" name="password" required></label>
-    <button type="submit">Zaloguj</button>
-</form>
-</body>
-</html>
-<?php endif; ?>
 
