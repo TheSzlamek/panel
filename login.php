@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// jeśli już zalogowany → od razu panel
+// jeśli już zalogowany → od razu do panelu
 if (!empty($_SESSION['logged_in'])) {
     header("Location: panel.php");
     exit;
 }
 
-// komunikat o błędzie
+// komunikat błędu
 $msg = $_GET['msg'] ?? '';
 ?>
 <!doctype html>
@@ -27,3 +27,4 @@ $msg = $_GET['msg'] ?? '';
 </form>
 </body>
 </html>
+
