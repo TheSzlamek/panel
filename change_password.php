@@ -6,12 +6,12 @@ if (empty($_SESSION['logged_in'])) {
 }
 
 $msg = '';
-$stored = trim(file_get_contents(__DIR__ . '/password.txt'));
+$stored = str_replace(["\r","\n"], '', file_get_contents(__DIR__ . '/password.txt'));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $current = $_POST['current'] ?? '';
-    $new = $_POST['new'] ?? '';
-    $confirm = $_POST['confirm'] ?? '';
+    $current = trim($_POST['current'] ?? '');
+    $new = trim($_POST['new'] ?? '');
+    $confirm = trim($_POST['confirm'] ?? '');
 
     if ($current !== $stored) {
         $msg = "Błędne obecne hasło.";
@@ -41,3 +41,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <p><a href="panel.php">Powrót do panelu</a></p>
 </body>
 </html>
+
