@@ -13,11 +13,12 @@ if (empty($_SESSION['logged_in'])) {
 </head>
 <body>
 <h2>Panel użytkownika</h2>
-<p>To jest Twój panel. Możesz tutaj dodawać przyciski, linki, treści.</p>
+<p>Witaj! To jest Twój panel.</p>
 <p>
     <a href="change_password.php">Zmień hasło</a> |
     <a href="logout.php">Wyloguj</a>
 </p>
 </body>
 </html>
+
 
