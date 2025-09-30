@@ -3,10 +3,10 @@ session_start();
 
 // wczytanie hasła z pliku
 $stored = file_get_contents(__DIR__ . '/password.txt');
-// usuń końce linii
+// usuń wszystkie końce linii
 $stored = str_replace(["\r","\n"], '', $stored);
 
-// hasło wpisane w formularzu
+// hasło wpisane przez użytkownika
 $entered = trim($_POST['password'] ?? '');
 
 // sprawdzenie
@@ -18,6 +18,7 @@ if ($entered === $stored) {
     header("Location: login.php?msg=" . urlencode("Błędne hasło"));
     exit;
 }
+
 
 
 
