@@ -3,9 +3,13 @@ session_start();
 
 // Pobranie hasła z pliku
 $stored = file_get_contents(__DIR__ . '/password.txt');
-$stored = str_replace(["\r","\n"], '', $stored); // usuwa wszystkie nowe linie
+
+// Usuń wszystkie końce linii i spacje
+$stored = str_replace(["\r", "\n", " "], '', $stored);
 
 $entered = $_POST['password'] ?? '';
+$entered = trim($entered); // usuwa spacje z początku i końca
+
 if ($entered === $stored) {
     $_SESSION['logged_in'] = true;
     header("Location: panel.php");
@@ -14,4 +18,5 @@ if ($entered === $stored) {
     header("Location: login.php?msg=" . urlencode("Błędne hasło"));
     exit;
 }
+
 
