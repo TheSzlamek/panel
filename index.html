@@ -4,27 +4,61 @@
     <meta charset="utf-8">
     <title>Strona główna</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 50px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px;
-            cursor: pointer;
-        }
+        body { font-family: Arial; text-align: center; padding-top: 50px; }
+        button { padding: 10px 20px; margin: 10px; }
+        #loginForm, #panel { display: none; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <h1>Witaj na mojej stronie!</h1>
-    <p>Możesz tu dodać swoje przyciski i elementy.</p>
+    <h1>Witaj na stronie!</h1>
+    <button id="showLogin">Zaloguj się</button>
 
-    <!-- Przycisk logowania -->
-    <button onclick="window.location.href='login.php'">Zaloguj się</button>
+    <!-- Formularz logowania -->
+    <div id="loginForm">
+        <h2>Logowanie</h2>
+        <input type="password" id="password" placeholder="Hasło">
+        <button id="loginBtn">Zaloguj</button>
+        <p id="msg" style="color:red;"></p>
+    </div>
 
-    <!-- Inny przykładowy przycisk -->
-    <button onclick="alert('Kliknąłeś przycisk!')">Kliknij mnie</button>
+    <!-- Panel po zalogowaniu -->
+    <div id="panel">
+        <h2>Panel</h2>
+        <p>To jest Twój panel. Możesz dodać tutaj przyciski i inne funkcje.</p>
+        <button id="logoutBtn">Wyloguj</button>
+    </div>
+
+    <script>
+        const correctPassword = "mojehaslo123"; // wpisz swoje hasło
+        const showLogin = document.getElementById("showLogin");
+        const loginForm = document.getElementById("loginForm");
+        const loginBtn = document.getElementById("loginBtn");
+        const panel = document.getElementById("panel");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const msg = document.getElementById("msg");
+
+        showLogin.onclick = () => {
+            loginForm.style.display = "block";
+            showLogin.style.display = "none";
+        }
+
+        loginBtn.onclick = () => {
+            const pw = document.getElementById("password").value;
+            if (pw === correctPassword) {
+                loginForm.style.display = "none";
+                panel.style.display = "block";
+                msg.textContent = "";
+            } else {
+                msg.textContent = "Błędne hasło!";
+            }
+        }
+
+        logoutBtn.onclick = () => {
+            panel.style.display = "none";
+            showLogin.style.display = "inline-block";
+            document.getElementById("password").value = "";
+        }
+    </script>
 </body>
 </html>
+
