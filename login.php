@@ -2,7 +2,7 @@
 session_start();
 
 // Wczytanie hasła z pliku (np. haslo.txt)
-$storedPassword = trim(file_get_contents("haslo.txt"));
+$storedPassword = trim(file_get_contents("password.txt"));
 
 // Hasło wpisane w formularzu
 $inputPassword = $_POST['password'] ?? "";
