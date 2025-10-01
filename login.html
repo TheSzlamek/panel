@@ -1,4 +1,27 @@
-<form method="POST" action="login.php">
-  <input type="password" name="password" placeholder="Hasło" required>
-  <button type="submit">Zaloguj</button>
-</form>
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login</title>
+  <style>
+    body{font-family: Arial, sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; background:#eef2f7}
+    form{background:white;padding:24px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.08);width:320px}
+    input{width:100%;padding:10px;margin:8px 0;border:1px solid #ccd; border-radius:6px}
+    button{width:100%;padding:10px;border:0;border-radius:6px;background:#28a745;color:white;font-size:16px;cursor:pointer}
+    .msg{color:#d9534f;margin-bottom:8px}
+  </style>
+</head>
+<body>
+  <form method="POST" action="login.php" autocomplete="off">
+    <h2>Logowanie</h2>
+    <!-- opcjonalnie: pokazanie komunikatu z GET ?error=1 -->
+    <?php if (isset($_GET['error'])): ?>
+      <div class="msg"><?= htmlspecialchars($_GET['error']) ?></div>
+    <?php endif; ?>
+    <input type="password" name="password" placeholder="Hasło" required autofocus>
+    <button type="submit">Zaloguj</button>
+  </form>
+</body>
+</html>
+
