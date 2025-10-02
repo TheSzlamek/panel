@@ -1,16 +1,88 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <title>Login</title>
+    <meta charset="UTF-8">
+    <title>Logowanie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e1e;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+            text-align: center;
+            width: 300px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4caf50;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        #error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-  <form method="POST" action="login.php">
-    <input type="password" name="password" placeholder="Hasło">
-    <button type="submit">Zaloguj</button>
-  </form>
+    <div class="container">
+        <h2>Logowanie</h2>
+        <input type="text" id="username" placeholder="Login">
+        <input type="password" id="password" placeholder="Hasło">
+        <button onclick="login()">Zaloguj</button>
+        <p id="error"></p>
+    </div>
+
+    <script>
+        function login() {
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+
+            // Login i hasło ustawione w kodzie
+            const correctUser = "admin";
+            const correctPass = "12345";
+
+            if (user === correctUser && pass === correctPass) {
+                localStorage.setItem("logged", "true");
+                window.location.href = "panel.html";
+            } else {
+                document.getElementById("error").innerText = "Błędny login lub hasło!";
+            }
+        }
+    </script>
 </body>
 </html>
+
 
 
 
