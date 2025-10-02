@@ -1,41 +1,68 @@
-<?php
-session_start();
-
-// Prosty limit czasu sesji (opcjonalne): 30 minut
-$timeoutSeconds = 30 * 60;
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header('Location: login.html');
-    exit;
-}
-if (isset($_SESSION['logged_at']) && (time() - $_SESSION['logged_at']) > $timeoutSeconds) {
-    session_unset();
-    session_destroy();
-    header('Location: login.html?error=' . urlencode('Sesja wygasła, zaloguj się ponownie.'));
-    exit;
-}
-// odśwież "last activity"
-$_SESSION['logged_at'] = time();
-?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Panel</title>
-  <style>
-    body{font-family: Arial, sans-serif;padding:24px;background:#f8fafc}
-    .card{background:white;padding:20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.06);max-width:800px;margin:40px auto}
-    a.btn{display:inline-block;padding:8px 14px;background:#dc3545;color:white;border-radius:6px;text-decoration:none}
-  </style>
+    <meta charset="UTF-8">
+    <title>Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e1e;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #2a2a2a;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+            text-align: center;
+            width: 350px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #f44336;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background: #e53935;
+        }
+    </style>
 </head>
-<body>
-  <div class="card">
-    <h1>Panel użytkownika</h1>
-    <p>Jesteś zalogowany. Tutaj umieść treść panelu.</p>
-    <p><a class="btn" href="logout.php">Wyloguj</a></p>
-  </div>
+<body onload="checkLogin()">
+    <div class="container">
+        <h2>Panel</h2>
+        <p>Witaj! Jesteś zalogowany.</p>
+        <button onclick="logout()">Wyloguj</button>
+    </div>
+
+    <script>
+        function checkLogin() {
+            if (localStorage.getItem("logged") !== "true") {
+                window.location.href = "login.html";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("logged");
+            window.location.href = "login.html";
+        }
+    </script>
 </body>
 </html>
+
 
 
 
