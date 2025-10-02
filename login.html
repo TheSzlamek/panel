@@ -21,7 +21,8 @@
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0,0,0,0.6);
             text-align: center;
-            width: 300px;
+            width: 320px;
+            position: relative;
         }
 
         input {
@@ -51,37 +52,46 @@
         #error {
             color: red;
             font-size: 14px;
+            position: absolute;
+            right: -180px;
+            top: 40%;
+            white-space: nowrap;
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Logowanie</h2>
-        <input type="text" id="username" placeholder="Login">
         <input type="password" id="password" placeholder="Hasło">
         <button onclick="login()">Zaloguj</button>
-        <p id="error"></p>
+        <p id="error">Błędne hasło!</p>
     </div>
 
     <script>
-        function login() {
-            const user = document.getElementById("username").value;
+        async function login() {
             const pass = document.getElementById("password").value;
 
-            // Login i hasło ustawione w kodzie
-            const correctUser = "admin";
-            const correctPass = "12345";
+            // Pobieramy hasło z pliku password.txt przez PHP
+            let response = await fetch("getpass.php");
+            let correctPass = await response.text();
 
-            if (user === correctUser && pass === correctPass) {
+            if (pass === correctPass) {
                 localStorage.setItem("logged", "true");
                 window.location.href = "panel.html";
             } else {
-                document.getElementById("error").innerText = "Błędny login lub hasło!";
+                let errorBox = document.getElementById("error");
+                errorBox.style.display = "block";
+
+                setTimeout(() => {
+                    errorBox.style.display = "none";
+                }, 4000);
             }
         }
     </script>
 </body>
 </html>
+
 
 
 
