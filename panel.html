@@ -2,361 +2,286 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
+  <title>Szlamek.store - Panel Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Szlamek.store - Panel</title>
   <style>
-    /* --- RESET / BODY --- */
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
     }
 
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
-      height: 100vh;
-      background: #111;
-      color: #ddd;
-      overflow: hidden;
+      min-height: 100vh;
+      background-color: #111;
+      color: #eee;
     }
 
-    /* --- SIDEBAR --- */
+    /* === SIDEBAR === */
     .sidebar {
-      width: 220px;
-      background: #1a1a1a;
+      width: 240px;
+      background-color: #181818;
+      border-right: 2px solid #222;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      border-right: 1px solid #2a2a2a;
-      transition: transform 0.3s ease;
     }
 
-    .sidebar h1 {
+    .sidebar h2 {
+      font-size: 1.3rem;
       text-align: center;
-      font-size: 20px;
-      padding: 18px 0;
-      margin: 0;
-      color: #bbb;
-      font-weight: 600;
-      border-bottom: 1px solid #2a2a2a;
-    }
-
-    .menu-top, .menu-bottom {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .menu-bottom {
-      margin-top: auto;
-      border-top: 1px solid #2a2a2a;
+      margin-bottom: 20px;
     }
 
     .sidebar button {
-      background: none;
+      background: #222;
+      color: #ddd;
+      padding: 10px;
       border: none;
-      color: #aaa;
-      padding: 14px 16px;
+      margin-bottom: 10px;
+      border-radius: 5px;
       text-align: left;
       cursor: pointer;
-      width: 100%;
-      font-size: 15px;
-      transition: 0.2s;
+      transition: background 0.3s;
     }
 
     .sidebar button:hover {
-      background: #2a2a2a;
+      background: #00c853;
       color: #fff;
     }
 
-    /* --- HAMBURGER MENU (MOBILE) --- */
-    .hamburger {
-      display: none;
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: #1a1a1a;
-      border: none;
-      color: #ddd;
-      font-size: 22px;
-      padding: 6px 10px;
-      cursor: pointer;
-      z-index: 1001;
-      border-radius: 4px;
-    }
-
-    /* --- MAIN --- */
+    /* === MAIN === */
     .main {
       flex: 1;
-      padding: 25px;
-      background: #181818;
+      padding: 20px;
       overflow-y: auto;
-      width: 100%;
     }
 
-    .main h2, .main h3, .main h4 {
-      color: #ccc;
-      margin-top: 0;
+    .main h1 {
+      font-size: 1.4rem;
+      margin-bottom: 15px;
     }
 
-    /* --- TABLE --- */
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin-top: 20px;
-      background: #202020;
-      border-radius: 8px;
-      overflow: hidden;
-      color: #ddd;
-      font-size: 14px;
-      display: block;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-
-    th, td {
-      padding: 10px;
-      text-align: left;
-      border: 1px solid #2a2a2a;
-    }
-
-    th {
-      background: #2a2a2a;
-      font-weight: 600;
-      color: #bbb;
-    }
-
-    tr:hover {
-      background: #2a2a2a;
-    }
-
-    /* --- FORMS --- */
     form {
-      margin-top: 20px;
-      background: #202020;
-      padding: 18px;
-      border-left: 4px solid #444;
-      border-radius: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
-    form input, form select, form button {
-      margin: 6px 0;
+    input[type="text"] {
+      flex: 1;
       padding: 10px;
-      width: 100%;
-      border-radius: 4px;
+      background: #222;
       border: 1px solid #333;
-      background: #151515;
-      color: #ddd;
-      font-size: 14px;
+      border-radius: 5px;
+      color: white;
     }
 
-    form input:focus, form select:focus {
-      border-color: #555;
-      outline: none;
-    }
-
-    /* --- BUTTONS --- */
-    .action-btn {
-      cursor: pointer;
-      padding: 8px 14px;
+    button[type="submit"] {
+      background: #00c853;
       border: none;
-      margin: 2px;
-      border-radius: 4px;
-      font-size: 13px;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
 
-    .edit-btn { background: #3a7; color: #fff; }
-    .edit-btn:hover { background: #2d5; }
-    .delete-btn { background: #b33; color: #fff; }
-    .delete-btn:hover { background: #d44; }
-    .save-btn { background: #3a7; color: #fff; }
-    .save-btn:hover { background: #2d5; }
-    .cancel-btn { background: #555; color: #fff; }
-    .cancel-btn:hover { background: #777; }
+    button[type="submit"]:hover {
+      background: #00e676;
+    }
 
-    /* --- RESPONSYWNOŚĆ --- */
+    ul {
+      list-style: none;
+    }
+
+    li {
+      background: #1e1e1e;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .edit-btn, .delete-btn {
+      border: none;
+      padding: 5px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .edit-btn {
+      background: #3a7;
+    }
+    .edit-btn:hover {
+      background: #2c6;
+    }
+
+    .delete-btn {
+      background: #c33;
+    }
+    .delete-btn:hover {
+      background: #e44;
+    }
+
+    /* === RESPONSYWNOŚĆ === */
     @media (max-width: 768px) {
       body {
         flex-direction: column;
       }
 
       .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        transform: translateX(-100%);
-        z-index: 1000;
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        border-right: none;
+        border-bottom: 2px solid #222;
       }
 
-      .sidebar.active {
-        transform: translateX(0);
+      .sidebar h2 {
+        display: none;
       }
 
-      .hamburger {
-        display: block;
+      .sidebar button {
+        flex: 1;
+        text-align: center;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        margin-bottom: 0;
       }
 
       .main {
         padding: 15px;
-        margin-top: 50px;
       }
 
-      .sidebar button {
-        font-size: 16px;
-        padding: 16px;
+      form {
+        flex-direction: column;
       }
     }
   </style>
 </head>
 <body>
-  <button class="hamburger" onclick="toggleMenu()">☰</button>
-  <div class="sidebar" id="sidebar">
-    <h1>Szlamek.store</h1>
-    <div class="menu-top">
-      <button onclick="loadCategory('netflix')">Netflix</button>
-      <button onclick="loadCategory('spotify')">Spotify</button>
-      <button onclick="loadCategory('gry')">Gry</button>
-    </div>
-    <div class="menu-bottom">
-      <button onclick="loadCategory('kredyt')">Kredyt</button>
-      <button onclick="loadCategory('konto')">Konto</button>
-    </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>Szlamek.store</h2>
+    <button onclick="showCategory('netflix')">Netflix</button>
+    <button onclick="showCategory('spotify')">Spotify</button>
+    <button onclick="showCategory('gry')">Gry</button>
+    <button onclick="showCategory('kredyt')">Kredyt</button>
+    <button onclick="showCategory('konto')">Konto</button>
   </div>
 
-  <div class="main" id="main-content">
-    <h2>Witaj w panelu Szlamek.store</h2>
-    <p>Wybierz kategorię z menu po lewej stronie.</p>
+  <!-- MAIN -->
+  <div class="main">
+    <h1 id="category-title">Wybierz kategorię</h1>
+
+    <form id="item-form" style="display: none;">
+      <input type="text" id="item-input" placeholder="Wpisz treść..." required>
+      <button type="submit">Dodaj</button>
+    </form>
+
+    <ul id="item-list"></ul>
   </div>
 
   <script>
-    // --- MENU (MOBILE) ---
-    function toggleMenu() {
-      document.getElementById('sidebar').classList.toggle('active');
+    const categoryTitle = document.getElementById("category-title");
+    const form = document.getElementById("item-form");
+    const input = document.getElementById("item-input");
+    const list = document.getElementById("item-list");
+
+    let currentCategory = null;
+    let data = JSON.parse(localStorage.getItem("panelData")) || {};
+
+    function showCategory(cat) {
+      currentCategory = cat;
+      categoryTitle.textContent = "Kategoria: " + cat.toUpperCase();
+      form.style.display = "flex";
+      input.value = "";
+      renderList();
     }
 
-    // --- DANE ---
-    let data = JSON.parse(localStorage.getItem("szlamekData")) || { netflix: [], spotify: [], gry: [], kredyt: [] };
+    function renderList() {
+      list.innerHTML = "";
+      if (!currentCategory) return;
 
-    function saveData(){localStorage.setItem("szlamekData",JSON.stringify(data));}
-    function getFields(cat){
-      if(cat==="netflix") return ["Imię i nazwisko","Email","Hasło","Kod","Ważne do"];
-      if(cat==="spotify") return ["Imię i nazwisko","Email","Hasło","Plan","Ważne do"];
-      if(cat==="gry") return ["Imię i nazwisko","Nazwa gry","Login","Hasło"];
-      if(cat==="kredyt") return ["Imię i nazwisko","Kwota","Termin spłaty"];
-      return ["Imię i nazwisko"];
-    }
+      const items = data[currentCategory] || [];
+      items.forEach((item, index) => {
+        const li = document.createElement("li");
 
-    // --- ŁADOWANIE KATEGORII ---
-    function loadCategory(cat){
-      document.getElementById('sidebar').classList.remove('active'); // zamknij menu na telefonie
-      let content=document.getElementById("main-content");
-      if(cat!=="konto"){
-        showTable(cat,content);
-      } else {
-        content.innerHTML=`
-        <h2>Zarządzanie danymi</h2>
-        <form onsubmit="addRow(this);return false;">
-          <label>Kategoria:</label>
-          <select name="category" required>
-            <option value="">-- wybierz --</option>
-            <option value="netflix">Netflix</option>
-            <option value="spotify">Spotify</option>
-            <option value="gry">Gry</option>
-            <option value="kredyt">Kredyt</option>
-          </select>
-          <div id="dynamic-fields"></div>
-          <button type="submit">Dodaj</button>
-        </form>
-        <h3>Twoje wpisy:</h3>
-        <div id="all-tables"></div>
-        `;
-        renderAllTables();
-        const select=document.querySelector("select[name='category']");
-        select.addEventListener("change",function(){
-          let fieldsDiv=document.getElementById("dynamic-fields");
-          fieldsDiv.innerHTML="";
-          let fields=getFields(this.value);
-          fields.forEach((f,i)=>{fieldsDiv.innerHTML+=`<input type="text" name="field${i}" placeholder="${f}" required>`;});
-        });
-      }
-    }
+        const span = document.createElement("span");
+        span.textContent = item;
 
-    function addRow(form){
-      const cat=form.category.value;
-      let newRow=[];
-      for(let i=1;i<form.elements.length-1;i++){
-        if(form.elements[i].type!=="select-one") newRow.push(form.elements[i].value);
-      }
-      data[cat].push(newRow);
-      saveData();
-      form.reset();
-      loadCategory('konto');
-    }
+        const actions = document.createElement("div");
+        actions.className = "actions";
 
-    function renderAllTables(){
-      const container=document.getElementById("all-tables");
-      container.innerHTML="";
-      for(let cat in data){
-        if(data[cat].length>0){
-          let html=`<h4>${cat.charAt(0).toUpperCase()+cat.slice(1)}</h4><table><tr>`;
-          getFields(cat).forEach(f=>html+=`<th>${f}</th>`);
-          html+=`<th>Akcje</th></tr>`;
-          data[cat].forEach((row,i)=>{
-            html+=`<tr id="row-${cat}-${i}">`;
-            row.forEach(col=>html+=`<td>${col}</td>`);
-            html+=`<td>
-              <button class="action-btn edit-btn" onclick="editRow('${cat}',${i})">Edytuj</button>
-              <button class="action-btn delete-btn" onclick="deleteRow('${cat}',${i})">Usuń</button>
-            </td>`;
-            html+=`</tr>`;
-          });
-          html+=`</table>`;
-          container.innerHTML+=html;
-        }
-      }
-    }
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "Edytuj";
+        editBtn.className = "edit-btn";
+        editBtn.onclick = () => editItem(index);
 
-    function editRow(cat,index){
-      const row=data[cat][index];
-      const fields=getFields(cat);
-      let formHtml=`<form id="edit-form-${cat}-${index}" onsubmit="saveEdit('${cat}',${index});return false;">`;
-      fields.forEach((f,i)=>{formHtml+=`<label>${f}:</label><input type="text" name="field${i}" value="${row[i]}" required>`;});
-      formHtml+=`<button type="submit" class="action-btn save-btn">Zapisz</button>
-                 <button type="button" class="action-btn cancel-btn" onclick="loadCategory('konto')">Anuluj</button>
-                 </form>`;
-      document.getElementById(`row-${cat}-${index}`).innerHTML=`<td colspan="${fields.length+1}">${formHtml}</td>`;
-    }
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Usuń";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.onclick = () => deleteItem(index);
 
-    function saveEdit(cat,index){
-      const form=document.getElementById(`edit-form-${cat}-${index}`);
-      const fields=getFields(cat);
-      let newRow=[];
-      for(let i=0;i<fields.length;i++){newRow.push(form[`field${i}`].value);}
-      data[cat][index]=newRow;
-      saveData();
-      loadCategory('konto');
-    }
+        actions.appendChild(editBtn);
+        actions.appendChild(deleteBtn);
 
-    function deleteRow(cat,index){
-      if(confirm("Na pewno chcesz usunąć ten wpis?")){
-        data[cat].splice(index,1);
-        saveData();
-        loadCategory('konto');
-      }
-    }
-
-    function showTable(cat,content){
-      let fields=getFields(cat);
-      let html=`<h2>${cat.charAt(0).toUpperCase()+cat.slice(1)}</h2><table><tr>`;
-      fields.forEach(f=>html+=`<th>${f}</th>`);
-      html+=`</tr>`;
-      data[cat].forEach(row=>{
-        html+=`<tr>`;
-        row.forEach(col=>html+=`<td>${col}</td>`);
-        html+=`</tr>`;
+        li.appendChild(span);
+        li.appendChild(actions);
+        list.appendChild(li);
       });
-      html+=`</table>`;
-      content.innerHTML=html;
+    }
+
+    function saveData() {
+      localStorage.setItem("panelData", JSON.stringify(data));
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!currentCategory) return;
+
+      const text = input.value.trim();
+      if (text === "") return;
+
+      if (!data[currentCategory]) data[currentCategory] = [];
+      data[currentCategory].push(text);
+      saveData();
+      input.value = "";
+      renderList();
+    });
+
+    function deleteItem(index) {
+      if (!currentCategory) return;
+      data[currentCategory].splice(index, 1);
+      saveData();
+      renderList();
+    }
+
+    function editItem(index) {
+      const newText = prompt("Edytuj wpis:", data[currentCategory][index]);
+      if (newText !== null && newText.trim() !== "") {
+        data[currentCategory][index] = newText.trim();
+        saveData();
+        renderList();
+      }
     }
   </script>
+
 </body>
 </html>
+
