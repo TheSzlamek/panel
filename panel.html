@@ -1,64 +1,322 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <title>Panel</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #1e1e1e;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+  <meta charset="UTF-8">
+  <title>Szlamek.store - Panel</title>
+  <style>
+    /* --- BODY --- */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      height: 100vh;
+      background: #111;
+      color: #ddd;
+      overflow: hidden;
+    }
 
-        .container {
-            background: #2a2a2a;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.6);
-            text-align: center;
-            width: 350px;
-        }
+    /* --- SIDEBAR --- */
+    .sidebar {
+      width: 220px;
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #2a2a2a;
+    }
 
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #f44336;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
+    .sidebar h1 {
+      text-align: center;
+      font-size: 20px;
+      padding: 18px 0;
+      margin: 0;
+      color: #bbb;
+      font-weight: 600;
+      border-bottom: 1px solid #2a2a2a;
+    }
 
-        button:hover {
-            background: #e53935;
-        }
-    </style>
+    .menu-top, .menu-bottom {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-bottom {
+      margin-top: auto;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .sidebar button {
+      background: none;
+      border: none;
+      color: #aaa;
+      padding: 12px 16px;
+      text-align: left;
+      cursor: pointer;
+      width: 100%;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .sidebar button:hover {
+      background: #2a2a2a;
+      color: #fff;
+    }
+
+    /* --- MAIN --- */
+    .main {
+      flex: 1;
+      padding: 25px;
+      background: #181818;
+      overflow-y: auto;
+    }
+
+    .main h2, .main h3, .main h4 {
+      color: #ccc;
+      margin-top: 0;
+    }
+
+    /* --- TABLE --- */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+      background: #202020;
+      border-radius: 8px;
+      overflow: hidden;
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #2a2a2a;
+    }
+
+    th {
+      background: #2a2a2a;
+      font-weight: 600;
+      color: #bbb;
+    }
+
+    tr:hover {
+      background: #2a2a2a;
+    }
+
+    /* --- FORMS --- */
+    form {
+      margin-top: 20px;
+      background: #202020;
+      padding: 18px;
+      border-left: 4px solid #444;
+      border-radius: 8px;
+    }
+
+    form input, form select, form button {
+      margin: 6px 0;
+      padding: 10px;
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid #333;
+      background: #151515;
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    form input:focus, form select:focus {
+      border-color: #555;
+      outline: none;
+    }
+
+    /* --- BUTTONS --- */
+    .action-btn {
+      cursor: pointer;
+      padding: 6px 12px;
+      border: none;
+      margin: 2px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .edit-btn {
+      background: #3a7;
+      color: #fff;
+    }
+
+    .edit-btn:hover {
+      background: #2d5;
+    }
+
+    .delete-btn {
+      background: #b33;
+      color: #fff;
+    }
+
+    .delete-btn:hover {
+      background: #d44;
+    }
+
+    .save-btn {
+      background: #3a7;
+      color: #fff;
+    }
+
+    .save-btn:hover {
+      background: #2d5;
+    }
+
+    .cancel-btn {
+      background: #555;
+      color: #fff;
+    }
+
+    .cancel-btn:hover {
+      background: #777;
+    }
+  </style>
 </head>
-<body onload="checkLogin()">
-    <div class="container">
-        <h2>Panel</h2>
-        <p>Witaj! Jesteś zalogowany.</p>
-        <button onclick="logout()">Wyloguj</button>
+<body>
+  <div class="sidebar">
+    <h1>Szlamek.store</h1>
+    <div class="menu-top">
+      <button onclick="loadCategory('netflix')">Netflix</button>
+      <button onclick="loadCategory('spotify')">Spotify</button>
+      <button onclick="loadCategory('gry')">Gry</button>
     </div>
+    <div class="menu-bottom">
+      <button onclick="loadCategory('kredyt')">Kredyt</button>
+      <button onclick="loadCategory('konto')">Konto</button>
+    </div>
+  </div>
 
-    <script>
-        function checkLogin() {
-            if (localStorage.getItem("logged") !== "true") {
-                window.location.href = "login.html";
-            }
-        }
+  <div class="main" id="main-content">
+    <h2>Witaj w panelu Szlamek.store</h2>
+    <p>Wybierz kategorię z menu po lewej stronie.</p>
+  </div>
 
-        function logout() {
-            localStorage.removeItem("logged");
-            window.location.href = "login.html";
+  <script>
+    // --- DANE ---
+    let data = JSON.parse(localStorage.getItem("szlamekData")) || { netflix: [], spotify: [], gry: [], kredyt: [] };
+
+    function saveData(){localStorage.setItem("szlamekData",JSON.stringify(data));}
+    function getFields(cat){
+      if(cat==="netflix") return ["Imię i nazwisko","Email","Hasło","Kod","Ważne do"];
+      if(cat==="spotify") return ["Imię i nazwisko","Email","Hasło","Plan","Ważne do"];
+      if(cat==="gry") return ["Imię i nazwisko","Nazwa gry","Login","Hasło"];
+      if(cat==="kredyt") return ["Imię i nazwisko","Kwota","Termin spłaty"];
+      return ["Imię i nazwisko"];
+    }
+
+    // --- ŁADOWANIE KATEGORII ---
+    function loadCategory(cat){
+      let content=document.getElementById("main-content");
+      if(cat!=="konto"){
+        showTable(cat,content);
+      } else {
+        content.innerHTML=`
+        <h2>Zarządzanie danymi</h2>
+        <form onsubmit="addRow(this);return false;">
+          <label>Kategoria:</label>
+          <select name="category" required>
+            <option value="">-- wybierz --</option>
+            <option value="netflix">Netflix</option>
+            <option value="spotify">Spotify</option>
+            <option value="gry">Gry</option>
+            <option value="kredyt">Kredyt</option>
+          </select>
+          <div id="dynamic-fields"></div>
+          <button type="submit">Dodaj</button>
+        </form>
+        <h3>Twoje wpisy:</h3>
+        <div id="all-tables"></div>
+        `;
+        renderAllTables();
+        const select=document.querySelector("select[name='category']");
+        select.addEventListener("change",function(){
+          let fieldsDiv=document.getElementById("dynamic-fields");
+          fieldsDiv.innerHTML="";
+          let fields=getFields(this.value);
+          fields.forEach((f,i)=>{fieldsDiv.innerHTML+=`<input type="text" name="field${i}" placeholder="${f}" required>`;});
+        });
+      }
+    }
+
+    // --- DODAWANIE WIERSZA ---
+    function addRow(form){
+      const cat=form.category.value;
+      let newRow=[];
+      for(let i=1;i<form.elements.length-1;i++){if(form.elements[i].type!=="select-one") newRow.push(form.elements[i].value);}
+      data[cat].push(newRow);
+      saveData();
+      form.reset();
+      loadCategory('konto');
+    }
+
+    // --- RENDEROWANIE WSZYSTKICH TABEL ---
+    function renderAllTables(){
+      const container=document.getElementById("all-tables");
+      container.innerHTML="";
+      for(let cat in data){
+        if(data[cat].length>0){
+          let html=`<h4>${cat.charAt(0).toUpperCase()+cat.slice(1)}</h4><table><tr>`;
+          getFields(cat).forEach(f=>html+=`<th>${f}</th>`);
+          html+=`<th>Akcje</th></tr>`;
+          data[cat].forEach((row,i)=>{
+            html+=`<tr id="row-${cat}-${i}">`;
+            row.forEach(col=>html+=`<td>${col}</td>`);
+            html+=`<td>
+              <button class="action-btn edit-btn" onclick="editRow('${cat}',${i})">Edytuj</button>
+              <button class="action-btn delete-btn" onclick="deleteRow('${cat}',${i})">Usuń</button>
+            </td>`;
+            html+=`</tr>`;
+          });
+          html+=`</table>`;
+          container.innerHTML+=html;
         }
-    </script>
+      }
+    }
+
+    // --- EDYCJA WIERSZA ---
+    function editRow(cat,index){
+      const row=data[cat][index];
+      const fields=getFields(cat);
+      let formHtml=`<form id="edit-form-${cat}-${index}" onsubmit="saveEdit('${cat}',${index});return false;">`;
+      fields.forEach((f,i)=>{formHtml+=`<label>${f}:</label><input type="text" name="field${i}" value="${row[i]}" required>`;});
+      formHtml+=`<button type="submit" class="action-btn save-btn">Zapisz</button>
+                 <button type="button" class="action-btn cancel-btn" onclick="loadCategory('konto')">Anuluj</button>
+                 </form>`;
+      document.getElementById(`row-${cat}-${index}`).innerHTML=`<td colspan="${fields.length+1}">${formHtml}</td>`;
+    }
+
+    // --- ZAPIS EDYCJI ---
+    function saveEdit(cat,index){
+      const form=document.getElementById(`edit-form-${cat}-${index}`);
+      const fields=getFields(cat);
+      let newRow=[];
+      for(let i=0;i<fields.length;i++){newRow.push(form[`field${i}`].value);}
+      data[cat][index]=newRow;
+      saveData();
+      loadCategory('konto');
+    }
+
+    // --- USUWANIE WIERSZA ---
+    function deleteRow(cat,index){
+      if(confirm("Na pewno chcesz usunąć ten wpis?")){
+        data[cat].splice(index,1);
+        saveData();
+        loadCategory('konto');
+      }
+    }
+
+    // --- WYŚWIETLANIE TABELI ---
+    function showTable(cat,content){
+      let fields=getFields(cat);
+      let html=`<h2>${cat.charAt(0).toUpperCase()+cat.slice(1)}</h2><table><tr>`;
+      fields.forEach(f=>html+=`<th>${f}</th>`);
+      html+=`</tr>`;
+      data[cat].forEach(row=>{html+=`<tr>`;row.forEach(col=>html+=`<td>${col}</td>`);html+=`</tr>`;});
+      html+=`</table>`;
+      content.innerHTML=html;
+    }
+  </script>
 </body>
 </html>
